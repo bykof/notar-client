@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 
-import {Auth} from 'aws-amplify';
+import {view} from 'react-easy-state';
+import userStore from "../states/userState";
+import {Redirect} from "react-router-dom";
+import {ROOT_PATH} from "../constants";
 
 
 class LoginPage extends Component {
@@ -12,7 +15,8 @@ class LoginPage extends Component {
             isLoading: false,
             email: '',
             password: '',
-            newUser: null
+            newUser: null,
+            redirectAfterLogin: false,
         };
 
         this.onChange = this.onChange.bind(this);
@@ -27,11 +31,8 @@ class LoginPage extends Component {
         event.preventDefault();
         this.setState({error: null});
         try {
-            let data = await Auth.signIn(
-                this.state.email,
-                this.state.password,
-            );
-            console.log('This is my data: ', data);
+            await userStore.login(this.state.email, this.state.password);
+            this.setState({redirectAfterLogin: true});
         } catch (error) {
             this.setState({error: error});
         }
@@ -96,9 +97,11 @@ class LoginPage extends Component {
                         </form>
                     </div>
                 </div>
+
+                {this.state.redirectAfterLogin ? <Redirect to={ROOT_PATH} /> : null}
             </section>
         );
     }
 }
 
-export default LoginPage;
+export default view(LoginPage);

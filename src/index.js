@@ -8,6 +8,7 @@ import './index.css';
 import App from './App';
 
 import 'bulma';
+import userStore from "./states/userState";
 
 Amplify.configure(
     {
@@ -20,6 +21,8 @@ Amplify.configure(
         }
     }
 );
+
+userStore.checkForToken();
 
 ReactDOM.render(
     <App/>,

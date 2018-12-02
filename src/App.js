@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-
 import {BrowserRouter as Router, Route} from "react-router-dom";
 
 import RegisterPage from "./users/RegisterPage";
@@ -7,6 +6,7 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./users/LoginPage";
 import {LOGIN_PATH, REGISTER_PATH, ROOT_PATH} from "./constants";
 import Navbar from "./pages/Navbar";
+
 
 class App extends Component {
     render() {
