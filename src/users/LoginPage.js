@@ -98,7 +98,7 @@ class LoginPage extends Component {
                     </div>
                 </div>
 
-                {this.state.redirectAfterLogin ? <Redirect to={ROOT_PATH} /> : null}
+                {this.state.redirectAfterLogin ? <Redirect to={ROOT_PATH}/> : null}
             </section>
         );
     }
