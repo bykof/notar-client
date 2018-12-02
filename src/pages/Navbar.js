@@ -29,7 +29,6 @@ class Navbar extends Component {
                     <NavLink className="navbar-item" to={ROOT_PATH}>
                         Notar
                     </NavLink>
-
                     <a
                         role="button"
                         className={classNames('navbar-burger', 'burger', {'is-active': this.state.mobile_is_active})}

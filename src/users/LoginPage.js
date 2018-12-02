@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 
+import {Auth} from 'aws-amplify';
+
+
 class LoginPage extends Component {
 
     constructor(props) {
@@ -9,52 +12,91 @@ class LoginPage extends Component {
             isLoading: false,
             email: '',
             password: '',
-            confirmPassword: '',
-            confirmationCode: '',
             newUser: null
         };
 
         this.onChange = this.onChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
     }
 
     onChange(event) {
         this.setState({[event.target.name]: event.target.value});
     }
 
+    async onSubmit(event) {
+        event.preventDefault();
+        this.setState({error: null});
+        try {
+            let data = await Auth.signIn(
+                this.state.email,
+                this.state.password,
+            );
+            console.log('This is my data: ', data);
+        } catch (error) {
+            this.setState({error: error});
+        }
+    }
+
     render() {
         return (
-            <div className="App">
-                <label htmlFor={'email'}>
-                    Email:
-                </label>
-                <input
-                    type={'text'}
-                    id={'email'}
-                    name={'email'}
-                    value={this.state.email}
-                    onChange={this.onChange}
-                />
-                <label htmlFor={'password'}>
-                    Passwort:
-                </label>
-                <input
-                    type={'password'}
-                    id={'password'}
-                    name={'password'}
-                    value={this.state.email}
-                    onChange={this.onChange}
-                />
-                <label htmlFor={'confirmPassword'}>
-                    Passwort nochmal:
-                </label>
-                <input
-                    type={'password'}
-                    id={'confirmPassword'}
-                    name={'confirmPassword'}
-                    value={this.state.email}
-                    onChange={this.onChange}
-                />
-            </div>
+            <section className="section">
+                {
+                    this.state.error ? (
+                        <div className="columns">
+                            <div className="column is-half is-offset-one-quarter">
+                                <div className="notification is-danger">
+                                    {this.state.error.message}
+                                </div>
+                            </div>
+                        </div>
+                    ) : null
+                }
+                <div className="columns">
+                    <div className="column is-half is-offset-one-quarter">
+                        <form onSubmit={this.onSubmit}>
+                            <div className="field">
+                                <label htmlFor={'email'}>
+                                    Email
+                                </label>
+                                <div className="control">
+                                    <input
+                                        className="input"
+                                        type={'text'}
+                                        id={'email'}
+                                        name={'email'}
+                                        value={this.state.email}
+                                        onChange={this.onChange}
+                                    />
+                                </div>
+                            </div>
+                            <div className="field is-horizontal">
+                                <div className="field-body">
+                                    <div className="field">
+                                        <label htmlFor={'password'}>
+                                            Password
+                                        </label>
+                                        <div className="control">
+                                            <input
+                                                className="input"
+                                                type={'password'}
+                                                id={'password'}
+                                                name={'password'}
+                                                value={this.state.password}
+                                                onChange={this.onChange}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="field">
+                                <div className="control">
+                                    <button className="button is-link">Login</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
         );
     }
 }
