@@ -9,11 +9,10 @@ const userStore = store(
         get isLoggedIn() {
             return userStore.user !== null;
         },
-        async checkForToken() {
+        async refreshToken() {
             Auth.currentUserInfo().then(
                 (user) => {
                     userStore.user = user;
-                    console.log('get current user info: ', user);
                 }
             );
         },

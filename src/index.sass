@@ -1,0 +1,9 @@
+$sizes: 0 1 2 3 4 5
+$positions: 'top' 'right' 'bottom' 'left'
+
+@each $size in $sizes
+  @each $pos in $positions
+    .margin-#{$pos}-#{$size}
+      margin-#{$pos}: $size + rem
+    .padding-#{$pos}-#{$size}
+      padding-#{$pos}: $size + rem
