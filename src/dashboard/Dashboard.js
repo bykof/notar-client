@@ -1,31 +1,18 @@
 import React, {Component} from 'react';
-import DashboardMenu from "./DashboardMenu";
-import {BrowserRouter as Router, Route} from "react-router-dom";
-import {ROOT_PATH} from "../constants";
-import LoginPage from "../users/LoginPage";
 
+import {view} from 'react-easy-state';
+
+import NoKeys from "../keys/NoKeys";
+import keysStore from "../stores/keysStore";
 
 class Dashboard extends Component {
     render() {
         return (
             <div>
-                <section className="section">
-                    <div className="columns">
-                        <div className="column is-one-fifth">
-                            <DashboardMenu />
-                        </div>
-                        <div className="column is-four-fifths">
-                            <Router>
-                                <div>
-                                    <Route path={ROOT_PATH} component={LoginPage}/>
-                                </div>
-                            </Router>
-                        </div>
-                    </div>
-                </section>
+                {!keysStore.hasKeys ? <NoKeys /> : null}
             </div>
         );
     }
 }
 
-export default Dashboard;
+export default view(Dashboard);

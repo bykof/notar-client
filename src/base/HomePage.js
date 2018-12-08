@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
 
-import contract_image from '../static/images/contract.png';
+import {view} from 'react-easy-state';
 
-class AnonymousHomePage extends Component {
+import contract_image from "../static/images/contract.png";
+
+
+class HomePage extends Component {
     render() {
         return (
             <div>
@@ -23,4 +26,4 @@ class AnonymousHomePage extends Component {
     }
 }
 
-export default AnonymousHomePage;
+export default view(HomePage);

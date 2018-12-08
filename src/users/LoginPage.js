@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 import {view} from 'react-easy-state';
-import userStore from "../states/userState";
+import userStore from "../stores/userStore";
 import {Redirect} from "react-router-dom";
 import {ROOT_PATH} from "../constants";
 

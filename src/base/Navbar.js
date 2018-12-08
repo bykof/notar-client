@@ -4,8 +4,8 @@ import classNames from 'classnames';
 import {view} from 'react-easy-state';
 import {NavLink, Link} from "react-router-dom";
 
-import {LOGIN_PATH, REGISTER_PATH, ROOT_PATH} from "../constants";
-import userStore from "../states/userState";
+import {DASHBOARD_PATH, LOGIN_PATH, REGISTER_PATH, ROOT_PATH} from "../constants";
+import userStore from "../stores/userStore";
 
 
 class Navbar extends Component {
@@ -74,8 +74,11 @@ class Navbar extends Component {
 
                 <div className={classNames('navbar-menu', {'is-active': this.state.mobile_is_active})}>
                     <div className="navbar-start">
-                        <NavLink to={ROOT_PATH} className="navbar-item" activeClassName="selected">
+                        <NavLink to={ROOT_PATH} className="navbar-item" activeClassName="is-active">
                             Home
+                        </NavLink>
+                        <NavLink to={DASHBOARD_PATH} className="navbar-item" activeClassName="is-active">
+                            Dashboard
                         </NavLink>
                     </div>
 

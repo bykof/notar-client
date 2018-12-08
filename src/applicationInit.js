@@ -1,9 +1,10 @@
 import Amplify from "aws-amplify";
 import aws_config from "./aws_config";
-import userStore from "./states/userState";
+import userStore from "./stores/userStore";
+import keysStore from "./stores/keysStore";
 
 
-export default function initApplication() {
+export default async function initApplication() {
     Amplify.configure(
         {
             Auth: {
@@ -12,9 +13,18 @@ export default function initApplication() {
                 identityPoolId: aws_config.cognito.IDENTITY_POOL_ID,
                 userPoolWebClientId: aws_config.cognito.APP_CLIENT_ID,
                 mandatorySignIn: true,
+            },
+            API: {
+                endpoints: [
+                    {
+                        name: 'notar',
+                        endpoint: aws_config.apiGateway.URL,
+                    }
+                ]
             }
         }
     );
 
-    userStore.refreshToken();
+    await userStore.refreshToken();
+    await keysStore.updateKeys();
 }
