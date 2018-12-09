@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import {DASHBOARD_PATH, KEYS_PATH} from "../constants";
+import {CONTRACTS_PATH, DASHBOARD_PATH, KEYS_PATH} from "../constants";
 import {NavLink} from "react-router-dom";
 
 
@@ -14,6 +14,9 @@ class DashboardMenu extends Component {
                     </li>
                     <li>
                         <NavLink activeClassName={'is-active'} to={KEYS_PATH}>Keys</NavLink>
+                    </li>
+                    <li>
+                        <NavLink activeClassName={'is-active'} to={CONTRACTS_PATH}>Contracts</NavLink>
                     </li>
                 </ul>
             </aside>

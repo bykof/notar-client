@@ -74,7 +74,7 @@ class Navbar extends Component {
 
                 <div className={classNames('navbar-menu', {'is-active': this.state.mobile_is_active})}>
                     <div className="navbar-start">
-                        <NavLink to={ROOT_PATH} className="navbar-item" activeClassName="is-active">
+                        <NavLink to={ROOT_PATH} strict exact className="navbar-item" activeClassName="is-active">
                             Home
                         </NavLink>
                         <NavLink to={DASHBOARD_PATH} className="navbar-item" activeClassName="is-active">

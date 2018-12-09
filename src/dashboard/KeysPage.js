@@ -6,9 +6,19 @@ import keysStore from '../stores/keysStore';
 import NoKeys from "../keys/NoKeys";
 import Key from "../keys/Key";
 import Loading from "../base/Loading";
+import CreateKeyModal from "../keys/CreateKeyModal";
 
 
 class KeysPage extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            createKeyModalIsActive: false,
+        };
+    }
+
     render() {
         return (
             <div className="columns">
@@ -23,7 +33,14 @@ class KeysPage extends Component {
                                     <div className="columns">
                                         <div className="column has-text-right">
                                             Forgot your PIN?<br/>
-                                            <button className="button is-primary">Create new Key</button>
+                                            <button
+                                                className="button is-primary"
+                                                onClick={() => {
+                                                    this.setState({createKeyModalIsActive: true})
+                                                }}
+                                            >
+                                                Create new Key
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -31,6 +48,12 @@ class KeysPage extends Component {
                         )
                     }
                 </div>
+                <CreateKeyModal
+                    onClose={() => {
+                        this.setState({createKeyModalIsActive: false})
+                    }}
+                    isActive={this.state.createKeyModalIsActive}
+                />
             </div>
         );
     }

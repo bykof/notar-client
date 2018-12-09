@@ -14,17 +14,17 @@ const keysStore = store(
         },
         async createKey(pin) {
             try {
-                let key = await API.post(
+                await API.post(
                     'notar', '/keys', {
                         body: {
                             firstName: userStore.user.attributes['custom:firstName'],
                             lastName: userStore.user.attributes['custom:lastName'],
-                            birthday: userStore.user.attributes['custom:birthdayTimestamp'],
+                            birthdayTimestamp: userStore.user.attributes['custom:birthdayTimestamp'],
                             pin: pin
                         }
                     }
                 );
-                keysStore.keys.push(key);
+                keysStore.updateKeys();
             } catch (error) {
                 console.log(error);
             }
@@ -34,7 +34,15 @@ const keysStore = store(
             try {
                 keysStore.isLoading = true;
                 keysStore.keys = await API.get('notar', '/keys', {});
-                console.log(keysStore.keys);
+                keysStore.keys = keysStore.keys.sort(
+                    (a, b) => {
+                        if (a.created < b.created) return 1;
+                        if (a.created > b.created) return -1;
+                        if (a.created === b.created) return 0;
+                        return 0;
+                    }
+                );
+
             } finally {
                 keysStore.isLoading = false;
             }
