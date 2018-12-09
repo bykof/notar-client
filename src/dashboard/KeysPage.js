@@ -22,7 +22,8 @@ class KeysPage extends Component {
                                     }
                                     <div className="columns">
                                         <div className="column has-text-right">
-                                            <button className="button is-primary">Create Key</button>
+                                            Forgot your PIN?<br/>
+                                            <button className="button is-primary">Create new Key</button>
                                         </div>
                                     </div>
                                 </div>
