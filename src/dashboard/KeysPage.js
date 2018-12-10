@@ -28,7 +28,7 @@ class KeysPage extends Component {
                             !keysStore.hasKeys ? <NoKeys/> : (
                                 <div>
                                     {
-                                        keysStore.keys.map((key) => <Key key={key.id} keyObject={key}/>)
+                                        keysStore.keys.map((key) => <Key key={key.keyId} keyObject={key}/>)
                                     }
                                     <div className="columns">
                                         <div className="column has-text-right">

@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import DashboardMenu from "./DashboardMenu";
 import {Route} from "react-router-dom";
-import {DASHBOARD_PATH, KEYS_PATH} from "../constants";
+import {CONTRACTS_PATH, DASHBOARD_PATH, KEYS_PATH} from "../constants";
 import KeysPage from "./KeysPage";
 import Dashboard from "./Dashboard";
+import ContractsPage from "./ContractsPage";
 
 
 class DashboardWrapper extends Component {
@@ -18,6 +19,7 @@ class DashboardWrapper extends Component {
                         <div className="column is-four-fifths">
                             <Route path={DASHBOARD_PATH} strict exact component={Dashboard} />
                             <Route path={KEYS_PATH} component={KeysPage}/>
+                            <Route path={CONTRACTS_PATH} component={ContractsPage}/>
                         </div>
                     </div>
                 </section>

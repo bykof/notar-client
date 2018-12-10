@@ -8,7 +8,6 @@ import {DEFAULT_DATE_FORMAT} from "../constants";
 
 class Key extends Component {
     render() {
-        console.log(this.props.keyObject);
         return (
             <div className="box">
                 <div className="columns is-mobile">
