@@ -1,4 +1,5 @@
-import Amplify from "aws-amplify";
+import Amplify, {Auth} from "aws-amplify";
+import AWS from 'aws-sdk';
 import aws_config from "./aws_config";
 import userStore from "./stores/userStore";
 import keysStore from "./stores/keysStore";
@@ -17,7 +18,7 @@ export default async function initApplication() {
             Storage: {
                 region: aws_config.s3.REGION,
                 bucket: aws_config.s3.BUCKET,
-                identityPoolId: aws_config.cognito.IDENTITY_POOL_ID
+                identityPoolId: aws_config.cognito.IDENTITY_POOL_ID,
             },
             API: {
                 endpoints: [
@@ -30,6 +31,8 @@ export default async function initApplication() {
         }
     );
 
+    // Bug in AWS-Amplify, set the credentials hard
+    AWS.config.credentials = Auth.essentialCredentials(await Auth.currentCredentials());
     await userStore.refreshToken();
     await keysStore.updateKeys();
 }
