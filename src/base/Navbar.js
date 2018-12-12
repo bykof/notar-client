@@ -6,6 +6,8 @@ import {NavLink, Link} from "react-router-dom";
 
 import {DASHBOARD_PATH, LOGIN_PATH, REGISTER_PATH, ROOT_PATH} from "../constants";
 import userStore from "../stores/userStore";
+import ShowLoggedIn from "./ShowLoggedIn";
+import ShowAnonymous from "./ShowAnonymous";
 
 
 class Navbar extends Component {
@@ -25,7 +27,6 @@ class Navbar extends Component {
     }
 
     render() {
-        const userIsLoggedIn = userStore.isLoggedIn;
         const loginButton = (
             <Link
                 to={LOGIN_PATH}
@@ -85,9 +86,13 @@ class Navbar extends Component {
                     <div className={classNames('navbar-end')}>
                         <div className="navbar-item">
                             <div className="buttons">
-                                {!userIsLoggedIn ? registerButton : null}
-                                {!userIsLoggedIn ? loginButton : null}
-                                {userIsLoggedIn ? logoutButton : null}
+                                <ShowAnonymous>
+                                    {registerButton}
+                                    {loginButton}
+                                </ShowAnonymous>
+                                <ShowLoggedIn>
+                                    {logoutButton}
+                                </ShowLoggedIn>
                             </div>
                         </div>
                     </div>

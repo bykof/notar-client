@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Route} from "react-router-dom";
 
+import {view} from 'react-easy-state';
+
 import RegisterPage from "./users/RegisterPage";
 import HomePage from "./base/HomePage";
 import LoginPage from "./users/LoginPage";
@@ -27,4 +29,4 @@ class App extends Component {
     }
 }
 
-export default App;
+export default view(App);

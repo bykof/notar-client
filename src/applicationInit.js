@@ -31,8 +31,16 @@ export default async function initApplication() {
         }
     );
 
-    // Bug in AWS-Amplify, set the credentials hard
-    AWS.config.credentials = Auth.essentialCredentials(await Auth.currentCredentials());
     await userStore.refreshToken();
-    await keysStore.updateKeys();
+
+    try {
+        if ((await Auth.currentSession()) !== null) {
+            // Bug in AWS-Amplify, set the credentials hard
+            AWS.config.credentials = Auth.essentialCredentials(await Auth.currentCredentials());
+            await keysStore.updateKeys();
+        }
+    } catch (error) {
+        console.log(error);
+    }
+
 }

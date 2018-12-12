@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 
+import {Storage} from 'aws-amplify';
 import classNames from 'classnames';
 import uuid from "uuid";
 
@@ -23,7 +24,6 @@ class CreateContractForm extends Component {
     }
 
     fileChange(event) {
-        console.log(event.target.files);
         this.setState({[event.target.name]: event.target.files});
     }
 
@@ -34,12 +34,14 @@ class CreateContractForm extends Component {
     async onSubmit(event) {
         event.preventDefault();
         for (const file of this.state.contractFiles) {
-            await Storage.put(
+            const storage = await Storage.put(
                 uuid.v1() + '.pdf', file,
                 {
                     contentType: 'application/pdf',
                 },
             );
+
+            console.log(storage);
         }
     }
 
@@ -58,16 +60,16 @@ class CreateContractForm extends Component {
     }
 
     render() {
-        console.log(this.state.contractUsers);
         const renderedContractUsers = this.state.contractUsers.map(
             (contractUser) => {
                 return (
                     <span
-                        key={contractUser}
                         className="tag is-primary is-medium"
+                        style={{margin: 10}}
+                        key={contractUser}
                     >
                         {contractUser}
-                        <button className="delete" onClick={() => this.removeUser(contractUser)} />
+                        <button className="delete" onClick={() => this.removeUser(contractUser)}/>
                     </span>
                 );
             }
@@ -76,7 +78,7 @@ class CreateContractForm extends Component {
         return (
             <form onSubmit={this.onSubmit}>
                 <label className="label">
-                    Who has to sign the contract?
+                    Who have to sign the contract?
                 </label>
                 <div className="field has-addons">
                     <div className="control">
@@ -127,6 +129,17 @@ class CreateContractForm extends Component {
                                 {this.state.contractFiles ? this.state.contractFiles[0].name : null}
                             </span>
                         </label>
+                    </div>
+                </div>
+                <div className="columns">
+                    <div className="column ">
+                        <div className="field">
+                            <div className="control">
+                                <button type="submit" className="button is-primary is-pulled-right">
+                                    Signup
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </form>
