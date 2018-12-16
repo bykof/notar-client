@@ -28,12 +28,13 @@ const keysStore = store(
             } catch (error) {
                 console.log(error);
             }
-
         },
         async updateKeys() {
             try {
                 keysStore.isLoading = true;
-                keysStore.keys = await API.get('notar', '/keys', {});
+                keysStore.keys = await API.get(
+                    'notar', '/keys', {}
+                );
                 keysStore.keys = keysStore.keys.sort(
                     (a, b) => {
                         if (a.created < b.created) return 1;

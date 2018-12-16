@@ -3,6 +3,8 @@ import React, {Component} from 'react';
 import {Storage} from 'aws-amplify';
 import classNames from 'classnames';
 import uuid from "uuid";
+import contractStore from "../stores/contractsStore";
+import Loading from "../base/Loading";
 
 class CreateContractForm extends Component {
 
@@ -15,6 +17,8 @@ class CreateContractForm extends Component {
             contractFiles: null,
             newContractUser: '',
             contractUsers: [],
+            pin: '',
+            isLoading: false,
         };
 
         this.fileChange = this.fileChange.bind(this);
@@ -33,16 +37,21 @@ class CreateContractForm extends Component {
 
     async onSubmit(event) {
         event.preventDefault();
-        for (const file of this.state.contractFiles) {
-            const storage = await Storage.put(
-                uuid.v1() + '.pdf', file,
-                {
-                    contentType: 'application/pdf',
-                },
-            );
+        this.setState({isLoading: true});
 
-            console.log(storage);
-        }
+        const storage = await Storage.put(
+            uuid.v1() + '.pdf', this.state.contractFiles[0],
+            {
+                contentType: 'application/pdf',
+            },
+        );
+        const response = await contractStore.createContract(
+            this.state.pin,
+            storage.key,
+            this.state.users,
+        );
+        console.log(response);
+        this.setState({isLoading: false});
     }
 
     addUser() {
@@ -103,6 +112,20 @@ class CreateContractForm extends Component {
                         {renderedContractUsers}
                     </div>
                 </div>
+                <label className="label">
+                    Your current active Key Pin
+                </label>
+                <div className="field has-addons">
+                    <div className="control">
+                        <input
+                            className="input"
+                            type="text"
+                            name="pin"
+                            onChange={this.onChange}
+                            placeholder="123456"
+                        />
+                    </div>
+                </div>
                 <hr/>
                 <div className="field">
                     <label className="label">
@@ -136,7 +159,7 @@ class CreateContractForm extends Component {
                         <div className="field">
                             <div className="control">
                                 <button type="submit" className="button is-primary is-pulled-right">
-                                    Signup
+                                    {this.state.isLoading ? <Loading/> : "Sign"}
                                 </button>
                             </div>
                         </div>

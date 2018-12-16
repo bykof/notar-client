@@ -5,7 +5,9 @@ import {view} from 'react-easy-state';
 import NoKeys from "../keys/NoKeys";
 import keysStore from "../stores/keysStore";
 
+
 class Dashboard extends Component {
+
     render() {
         return (
             <div>
