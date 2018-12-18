@@ -57,6 +57,7 @@ class CreateContractForm extends Component {
             console.log(error);
         } finally {
             this.setState({isLoading: false});
+            contractStore.updateContracts();
         }
     }
 

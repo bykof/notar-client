@@ -3,6 +3,7 @@ import AWS from 'aws-sdk';
 import aws_config from "./aws_config";
 import userStore from "./stores/userStore";
 import keysStore from "./stores/keysStore";
+import contractStore from "./stores/contractsStore";
 
 
 export default async function initApplication() {
@@ -37,7 +38,11 @@ export default async function initApplication() {
         if ((await Auth.currentSession()) !== null) {
             // Bug in AWS-Amplify, set the credentials hard
             AWS.config.credentials = Auth.essentialCredentials(await Auth.currentCredentials());
-            await keysStore.updateKeys();
+            await Promise.all([
+                    keysStore.updateKeys(),
+                    contractStore.updateContracts()
+                ]
+            );
         }
     } catch (error) {
         console.log(error);
