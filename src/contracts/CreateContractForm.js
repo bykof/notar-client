@@ -45,13 +45,19 @@ class CreateContractForm extends Component {
                 contentType: 'application/pdf',
             },
         );
-        const response = await contractStore.createContract(
-            this.state.pin,
-            storage.key,
-            this.state.users,
-        );
-        console.log(response);
-        this.setState({isLoading: false});
+
+        try {
+            const response = await contractStore.createContract(
+                this.state.pin,
+                storage.key,
+                this.state.users,
+            );
+            console.log(response);
+        } catch (error) {
+            console.log(error);
+        } finally {
+            this.setState({isLoading: false});
+        }
     }
 
     addUser() {
