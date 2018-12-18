@@ -50,7 +50,7 @@ class CreateContractForm extends Component {
             const response = await contractStore.createContract(
                 this.state.pin,
                 storage.key,
-                this.state.users,
+                this.state.contractUsers,
             );
             console.log(response);
         } catch (error) {
