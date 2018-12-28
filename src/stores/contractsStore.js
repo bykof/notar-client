@@ -16,6 +16,7 @@ const contractStore = store(
                         body: {
                             firstName: userStore.user.attributes['custom:firstName'],
                             lastName: userStore.user.attributes['custom:lastName'],
+                            email: userStore.user.attributes['email'],
                             birthdayTimestamp: userStore.user.attributes['custom:birthdayTimestamp'],
                             pin: pin,
                             contractPDF: contractPDF,
@@ -46,6 +47,24 @@ const contractStore = store(
                 contractStore.isLoading = false;
             }
         },
+        async signContract(contractId, pin) {
+            try {
+                await API.post(
+                    'notar', '/contracts/sign-up', {
+                        body: {
+                            firstName: userStore.user.attributes['custom:firstName'],
+                            lastName: userStore.user.attributes['custom:lastName'],
+                            email: userStore.user.attributes['email'],
+                            birthdayTimestamp: userStore.user.attributes['custom:birthdayTimestamp'],
+                            pin: pin,
+                            contractId: contractId,
+                        }
+                    }
+                );
+            } catch (error) {
+                console.log(error);
+            }
+        }
     }
 );
 

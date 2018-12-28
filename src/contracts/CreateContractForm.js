@@ -161,15 +161,11 @@ class CreateContractForm extends Component {
                         </label>
                     </div>
                 </div>
-                <div className="columns">
-                    <div className="column ">
-                        <div className="field">
-                            <div className="control">
-                                <button type="submit" className="button is-primary is-pulled-right">
-                                    {this.state.isLoading ? <Loading/> : "Sign"}
-                                </button>
-                            </div>
-                        </div>
+                <div className="field">
+                    <div className="control has-text-right">
+                        <button type="submit" className="button is-primary">
+                            {this.state.isLoading ? <Loading/> : "Sign"}
+                        </button>
                     </div>
                 </div>
             </form>

@@ -46,12 +46,15 @@ class Navbar extends Component {
         );
 
         const logoutButton = (
-            <button
-                className="button is-text"
-                onClick={userStore.logout}
-            >
-                Logout
-            </button>
+            <div>
+                {userStore.user ? userStore.user.attributes.email: null}
+                <button
+                    className="button is-text"
+                    onClick={userStore.logout}
+                >
+                    Logout
+                </button>
+            </div>
         );
 
         return (
