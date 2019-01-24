@@ -4,6 +4,7 @@ import {view} from 'react-easy-state';
 
 import {Storage} from 'aws-amplify';
 import userStore from "../stores/userStore";
+import SignContractForm from "./SignContractForm";
 
 
 class Contract extends Component {
@@ -13,6 +14,7 @@ class Contract extends Component {
 
         this.state = {
             contractPDF: null,
+            isSignContractModalShown: false,
         }
     }
 
@@ -37,7 +39,12 @@ class Contract extends Component {
                                     userStore.user.attributes && userStore.user.attributes.email === user.email ?
                                         (
                                             !user.signedAt ? (
-                                                <button className="button is-primary">Sign</button>
+                                                <button
+                                                    className="button is-primary"
+                                                    onClick={() => {this.setState({isSignContractModalShown: true})}}
+                                                >
+                                                    Sign
+                                                </button>
                                             ) : (
                                                 <span
                                                     className={
@@ -62,6 +69,11 @@ class Contract extends Component {
                     )}
 
                 </div>
+                <SignContractForm
+                    contractId={this.props.contract.contractId}
+                    isActive={this.state.isSignContractModalShown}
+                    onClose={() => {this.setState({isSignContractModalShown: false})}}
+                />
             </div>
         );
     }

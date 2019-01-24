@@ -30,6 +30,7 @@ class CreateKeyModal extends Component {
 
         try {
             await keysStore.createKey(this.state.pin);
+            await keysStore.updateKeys();
         } catch (error) {
             console.log(error);
         } finally {
